@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#FAEDFF"
+        app:cardElevation="5dp"
+        android:layout_margin="10dp"
+        android:outlineSpotShadowColor="@color/red">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+    <TextView
+        android:id="@+id/tvMetaNameCom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMetaNameDep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Department Name"
+        android:textSize="14sp"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:id="@+id/tvConditionAcces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Condition Access"
+        android:textSize="14sp"
+        android:layout_marginTop="3dp"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+

@@ -1,19 +1,26 @@
 package com.example.opendatasoftapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
     private List<Result> records;
+    private Context context;
 
-    public RecordAdapter(List<Result> records) {
+    public RecordAdapter(List<Result> records, Context context) {
         this.records = records;
+        this.context = context;
     }
 
     @NonNull
@@ -29,6 +36,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         holder.tvMetaNameCom.setText(record.getMetaNameCom());
         holder.tvMetaNameDep.setText(record.getMetaNameDep());
         holder.tvConditionAcces.setText(record.getConditionAcces());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start DetailActivity with the selected Result object
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("result", record); // Pass the Result object
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

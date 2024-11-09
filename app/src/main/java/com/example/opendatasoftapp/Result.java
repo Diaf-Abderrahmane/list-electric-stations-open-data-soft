@@ -1,12 +1,11 @@
 package com.example.opendatasoftapp;
 
-import java.io.Serializable;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Result implements Parcelable {
     @SerializedName("nom_amenageur")
     private String nomAmenageur;
 
@@ -217,6 +216,132 @@ public class Result {
     public int getMetaUsersNumber() { return metaUsersNumber; }
     public String getCoordonneesxy() { return coordonneesxy; }
 
+    // Implementing Parcelable
+    protected Result(Parcel in) {
+        nomAmenageur = in.readString();
+        sirenAmenageur = in.readString();
+        contactAmenageur = in.readString();
+        nomOperateur = in.readString();
+        contactOperateur = in.readString();
+        telephoneOperateur = in.readString();
+        nomEnseigne = in.readString();
+        idStationItinerance = in.readString();
+        idStationLocal = in.readString();
+        nomStation = in.readString();
+        implantationStation = in.readString();
+        adresseStation = in.readString();
+        codeInseeCommune = in.readString();
+        nbrePdc = in.readString();
+        idPdcItinerance = in.readString();
+        idPdcLocal = in.readString();
+        puissanceNominale = in.readString();
+        priseTypeEf = in.readString();
+        priseType2 = in.readString();
+        priseTypeComboCcs = in.readString();
+        priseTypeChademo = in.readString();
+        priseTypeAutre = in.readString();
+        gratuit = in.readString();
+        paiementActe = in.readString();
+        paiementCb = in.readString();
+        paiementAutre = in.readString();
+        tarification = in.readString();
+        conditionAcces = in.readString();
+        reservation = in.readString();
+        horaires = in.readString();
+        accessibilitePmr = in.readString();
+        restrictionGabarit = in.readString();
+        stationDeuxRoues = in.readString();
+        raccordement = in.readString();
+        numPdl = in.readString();
+        dateMiseEnService = in.readString();
+        observations = in.readString();
+        dateMaj = in.readString();
+        metaNameCom = in.readString();
+        metaCodeCom = in.readString();
+        metaNameDep = in.readString();
+        metaCodeDep = in.readString();
+        metaNameReg = in.readString();
+        metaCodeReg = in.readString();
+        metaGeoPoint = in.readParcelable(GeoPoint.class.getClassLoader());
+        metaOsmId = in.readString();
+        metaOsmUrl = in.readString();
+        metaFirstUpdate = in.readString();
+        metaLastUpdate = in.readString();
+        metaVersionsNumber = in.readInt();
+        metaUsersNumber = in.readInt();
+        coordonneesxy = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nomAmenageur);
+        dest.writeString(sirenAmenageur);
+        dest.writeString(contactAmenageur);
+        dest.writeString(nomOperateur);
+        dest.writeString(contactOperateur);
+        dest.writeString(telephoneOperateur);
+        dest.writeString(nomEnseigne);
+        dest.writeString(idStationItinerance);
+        dest.writeString(idStationLocal);
+        dest.writeString(nomStation);
+        dest.writeString(implantationStation);
+        dest.writeString(adresseStation);
+        dest.writeString(codeInseeCommune);
+        dest.writeString(nbrePdc);
+        dest.writeString(idPdcItinerance);
+        dest.writeString(idPdcLocal);
+        dest.writeString(puissanceNominale);
+        dest.writeString(priseTypeEf);
+        dest.writeString(priseType2);
+        dest.writeString(priseTypeComboCcs);
+        dest.writeString(priseTypeChademo);
+        dest.writeString(priseTypeAutre);
+        dest.writeString(gratuit);
+        dest.writeString(paiementActe);
+        dest.writeString(paiementCb);
+        dest.writeString(paiementAutre);
+        dest.writeString(tarification);
+        dest.writeString(conditionAcces);
+        dest.writeString(reservation);
+        dest.writeString(horaires);
+        dest.writeString(accessibilitePmr);
+        dest.writeString(restrictionGabarit);
+        dest.writeString(stationDeuxRoues);
+        dest.writeString(raccordement);
+        dest.writeString(numPdl);
+        dest.writeString(dateMiseEnService);
+        dest.writeString(observations);
+        dest.writeString(dateMaj);
+        dest.writeString(metaNameCom);
+        dest.writeString(metaCodeCom);
+        dest.writeString(metaNameDep);
+        dest.writeString(metaCodeDep);
+        dest.writeString(metaNameReg);
+        dest.writeString(metaCodeReg);
+        dest.writeParcelable(metaGeoPoint, flags);
+        dest.writeString(metaOsmId);
+        dest.writeString(metaOsmUrl);
+        dest.writeString(metaFirstUpdate);
+        dest.writeString(metaLastUpdate);
+        dest.writeInt(metaVersionsNumber);
+        dest.writeInt(metaUsersNumber);
+        dest.writeString(coordonneesxy);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
+        @Override
+        public Result createFromParcel(Parcel in) {
+            return new Result(in);
+        }
+
+        @Override
+        public Result[] newArray(int size) {
+            return new Result[size];
+        }
+    };
 }
-
-

@@ -6,5 +6,8 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     @GET("osm-france-charging-station/records")
-    Call<ApiResponse> getGoldPrices(@Query("limit") int limit);
+    Call<ApiResponse> getStations(
+            @Query("offset") int offset, // The starting point
+            @Query("limit") int limit    // Number of records to fetch
+    );
 }

@@ -17,17 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private List<Result> stationList;
+    private List<Result> stationList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecordAdapter adapter;
 
+    // Variables for pagination
+    private int offset = 0; // Starting point for fetching data
+    private final int limit = 20; // Number of records per load
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button button = findViewById(R.id.button);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new RecordAdapter(null, this);
+        adapter = new RecordAdapter(stationList, this);
         recyclerView.setAdapter(adapter);
+
+        // RecyclerView Pagination to handle scrolling
+        // Add scroll listener for pagination
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (!isLoading && layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == stationList.size() - 1) {
+                    fetchRecords(); // Fetch more records when scrolled to the bottom
+                }
+            }
+        });
 
         // Fetching the stations using Retrofit
         fetchRecords();
@@ -68,19 +86,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void fetchRecords(){
+        if (isLoading) return; // Prevents multiple calls while loading
+
+        isLoading = true;
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<ApiResponse> call = apiService.getGoldPrices(20);
+        Call<ApiResponse> call = apiService.getStations(offset, limit);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                isLoading = false;
                 if (response.isSuccessful() && response.body() != null) {
                     ApiResponse apiResponse = response.body();
                     if (apiResponse.getResults() != null && !apiResponse.getResults().isEmpty()) {
-                        stationList = apiResponse.getResults();
-                        RecordAdapter adapter = new RecordAdapter(stationList, MainActivity.this);
-                        recyclerView.setAdapter(adapter);
+                        List<Result> results = apiResponse.getResults();
+                        int previousSize = stationList.size();
+                        stationList.addAll(results);
+                        adapter.notifyItemRangeInserted(previousSize, results.size());
+                        offset+= results.size();
+//                        RecordAdapter adapter = new RecordAdapter(stationList, MainActivity.this);
+//                        recyclerView.setAdapter(adapter);
                     } else {
                         System.out.println("No results available.");
                     }
@@ -91,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
+                isLoading = false; // Reset loading state
                 System.out.println("Error: " + t.getMessage());
             }
         });
@@ -98,4 +126,40 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
 }
+
+
+//private void fetchRecords(){
+//    isLoading = true;
+//    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//
+//    Call<ApiResponse> call = apiService.getGoldPrices(offset, limit);
+//    call.enqueue(new Callback<ApiResponse>() {
+//        @Override
+//        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+//            if (response.isSuccessful() && response.body() != null) {
+//                ApiResponse apiResponse = response.body();
+//                if (apiResponse.getResults() != null && !apiResponse.getResults().isEmpty()) {
+//                    stationList = apiResponse.getResults();
+//                    RecordAdapter adapter = new RecordAdapter(stationList, MainActivity.this);
+//                    recyclerView.setAdapter(adapter);
+//                } else {
+//                    System.out.println("No results available.");
+//                }
+//            } else {
+//                System.out.println("Request failed with code: " + response.code());
+//            }
+//        }
+//
+//        @Override
+//        public void onFailure(Call<ApiResponse> call, Throwable t) {
+//            System.out.println("Error: " + t.getMessage());
+//        }
+//    });
+//}
+//
+//private void loadMoreStations() {
+//
+//}

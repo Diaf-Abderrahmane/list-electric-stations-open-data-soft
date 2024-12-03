@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gratuit_options">
+        <item>All</item>
+        <item>Gratuit</item>
+        <item>Non Gratuit</item>
+    </string-array>
+</resources>

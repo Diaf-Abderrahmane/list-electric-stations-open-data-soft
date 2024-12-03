@@ -45,6 +45,11 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("com.google.android.material:material:1.8.0")  // Check for the latest version
+
+
+    implementation(libs.recyclerview)
 // For JSON parsing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

@@ -14,13 +14,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
-    <TextView
-        android:id="@+id/tvMetaNameCom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="City Name"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMetaNameCom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City Name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/favoriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_stroke_icon"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tvMetaNameDep"
@@ -37,6 +50,15 @@
         android:text="Condition Access"
         android:textSize="14sp"
         android:layout_marginTop="3dp"/>
+
+        <TextView
+            android:id="@+id/tvGratuit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gratuit ou pas"
+            android:textSize="14sp"
+            android:layout_marginTop="3dp"/>
+
     </LinearLayout>
     </androidx.cardview.widget.CardView>
 

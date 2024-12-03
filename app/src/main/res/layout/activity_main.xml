@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="1"
     tools:context=".MainActivity">
 
+    <!-- Filters section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_weight="0">
 
         <Spinner
-            android:id="@+id/spinner_city"
+            android:id="@+id/spinner_gratuit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:hint="Select City"
+            android:entries="@array/gratuit_options"
             android:minHeight="48dp" />
 
         <Spinner
@@ -30,28 +33,41 @@
             android:hint="Région"
             android:minHeight="48dp" />
 
-
-
     </LinearLayout>
 
+    <!-- Apply Filters Button -->
     <Button
         android:id="@+id/apply_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Apply Filters"
-        android:layout_marginHorizontal="130dp"/>
+        android:layout_marginHorizontal="130dp"
+        android:layout_weight="0" />
 
+    <!-- Go to Maps Button -->
     <Button
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:text="Go To Maps" />
+        android:text="Go To Maps"
+        android:layout_weight="0" />
 
+    <!-- RecyclerView for list of stations -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp" />
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_weight="1"/>
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/menu_bottom_navigation"
+        android:layout_weight="0" />
 
 </LinearLayout>

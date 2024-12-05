@@ -1,22 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
     tools:context=".MainActivity">
 
     <!-- Filters section -->
     <LinearLayout
+        android:id="@+id/filters_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:layout_weight="0">
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
 
         <Spinner
             android:id="@+id/spinner_gratuit"
@@ -32,7 +30,6 @@
             android:layout_marginStart="20dp"
             android:hint="Région"
             android:minHeight="48dp" />
-
     </LinearLayout>
 
     <!-- Apply Filters Button -->
@@ -40,34 +37,36 @@
         android:id="@+id/apply_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Apply Filters"
+        android:layout_below="@id/filters_layout"
         android:layout_marginHorizontal="130dp"
-        android:layout_weight="0" />
+        android:text="Apply Filters" />
 
     <!-- Go to Maps Button -->
     <Button
-        android:layout_margin="20dp"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:text="Go To Maps"
-        android:layout_weight="0" />
+        android:layout_below="@id/apply_button"
+        android:layout_margin="20dp"
+        android:text="Go To Maps" />
 
     <!-- RecyclerView for list of stations -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button"
+        android:layout_above="@id/bottom_nav"
+        android:layout_margin="16dp" />
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/menu_bottom_navigation"
-        android:layout_weight="0" />
-
-</LinearLayout>
+        app:backgroundTint="@color/blue"
+        android:layout_marginBottom="-20dp"/>
+</RelativeLayout>

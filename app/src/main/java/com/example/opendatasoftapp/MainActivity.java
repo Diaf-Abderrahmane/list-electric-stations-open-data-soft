@@ -62,24 +62,23 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
-        // Set the listener for item selection
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {// Handle Home item click
-                    Toast.makeText(MainActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
-                    // Optionally, navigate to Home activity or change fragment
-                    return true;
-                } else if (itemId == R.id.nav_favorites) {// Handle Favorites item click
-                    Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
+        // Set up the BottomNavigationView listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {// If already on Home, do nothing
+                return true;
+                // Navigate back to Home
+            } else if (itemId == R.id.nav_favorites) {// Navigate to Favorites activity
+                Intent favoritesIntent = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(favoritesIntent);
+                return true;
             }
+            return false;
         });
+
+
 
 
         Button button = findViewById(R.id.button);

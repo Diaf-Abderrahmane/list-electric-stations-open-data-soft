@@ -1,6 +1,7 @@
 package com.example.opendatasoftapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -38,6 +40,25 @@ public class FavoritesActivity extends AppCompatActivity {
         // Set up the adapter
         adapter = new RecordAdapter(favoriteStations, this);
         favoritesRecyclerView.setAdapter(adapter);
+
+        // Set up the BottomNavigationView listener in FavoritesActivity
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.nav_favorites); // Pre-select "Favorites"
+
+// Listener for navigation
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                // Navigate back to Home activity
+                Intent homeIntent = new Intent(FavoritesActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            } else if (itemId == R.id.nav_favorites) {// Already on Favorites, do nothing
+                return true;
+            }
+            return false;
+        });
+
     }
 
     private void loadFavorites() {

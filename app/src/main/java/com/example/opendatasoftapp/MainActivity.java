@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -32,6 +33,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
+
+    private NavigationView navigationView;
     private List<Result> stationList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -54,32 +59,28 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Initialize the drawer layout and navigation view
+        drawerLayout = findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Initialize BottomNavigationView
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-
-        // Set up the BottomNavigationView listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {// If already on Home, do nothing
-                return true;
-                // Navigate back to Home
-            } else if (itemId == R.id.nav_favorites) {// Navigate to Favorites activity
-                Intent favoritesIntent = new Intent(MainActivity.this, FavoritesActivity.class);
-                startActivity(favoritesIntent);
-                return true;
-            }
-            return false;
-        });
-
-
-
 
         Button button = findViewById(R.id.button);
         applyFiltersButton = findViewById(R.id.apply_button);
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 if (!isLoading && layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == stationList.size() - 1) {
-                    String selectedRegion = spinnerRegion.getSelectedItem().toString();
+                    String selectedRegion = spinnerRegion.getSelectedItem() != null ? spinnerRegion.getSelectedItem().toString() : "";
                     String selectedGratuit = spinnerGratuit.getSelectedItem().toString();
                     if (selectedRegion.equals("Région")) {
                     fetchRecords("",selectedGratuit);} else {
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
 
     // fetch with gratuit
@@ -193,48 +195,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//      Old fetch with region
-//    private void fetchRecords(String region){
-//        String whereClause = (region == null || region.isEmpty()) ? null : "meta_name_reg=\"" + region + "\"";
-//        if (isLoading) return; // Prevents multiple calls while loading
-//
-//        isLoading = true;
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-////        System.out.println("Fetching records for city: " + city);
-//
-//        Call<ApiResponse> call = apiService.getStations(offset, limit, whereClause);
-//        call.enqueue(new Callback<ApiResponse>() {
-//            @Override
-//            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-//                isLoading = false;
-//                if (response.isSuccessful() && response.body() != null) {
-//                    ApiResponse apiResponse = response.body();
-//
-//                    if (apiResponse.getResults() != null && !apiResponse.getResults().isEmpty()) {
-//                        List<Result> results = apiResponse.getResults();
-//
-//                        int previousSize = stationList.size();
-//                        stationList.addAll(results);
-//                        adapter.notifyItemRangeInserted(previousSize, results.size());
-//                        offset+= results.size();
-////                        RecordAdapter adapter = new RecordAdapter(stationList, MainActivity.this);
-////                        recyclerView.setAdapter(adapter);
-//                    } else {
-//                        System.out.println("No results available.");
-//                    }
-//                } else {
-//                    System.out.println("Request failed with code: " + response.code());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ApiResponse> call, Throwable t) {
-//                isLoading = false; // Reset loading state
-//                System.out.println("Error: " + t.getMessage());
-//            }
-//        });
-//    }
 
 //    private void fetchCities() {
 //        spinnerCity = findViewById(R.id.spinner_city);
@@ -330,7 +290,23 @@ public class MainActivity extends AppCompatActivity {
         fetchRecords(selectedRegion, selectedGratuit);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        int itemId = item.getItemId();
+        if (itemId == R.id.nav_home) {// Naviguer vers l'écran d'accueil
+            // Par exemple, avec un Intent ou en changeant de fragment
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (itemId == R.id.nav_favorites) {// Naviguer vers l'écran des favoris
+            startActivity(new Intent(this, FavoritesActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/mauve_op"
+        android:endColor="@color/mauve"
+    android:angle="45" /> <!-- Diagonal gradient from top-left to bottom-right -->
+    <corners
+        android:topLeftRadius="30dp"
+        android:topRightRadius="30dp" /> <!-- Only top corners rounded -->
+</shape>

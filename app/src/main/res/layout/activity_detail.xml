@@ -1,32 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:padding="16dp"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<TextView android:id="@+id/cityDetailTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <!-- Place Name TextView on top -->
 
-<TextView android:id="@+id/departmentDetailTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <!-- LinearLayout with Gradient Background -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/detail_bg"
+         android:layout_marginTop="8dp"
+         android:layout_marginBottom="16dp"
+         android:clipToOutline="true"
+         android:layout_gravity="center">
 
-<TextView android:id="@+id/regionDetailTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <!-- Info TextViews in the gradient background -->
+    <TextView
+        android:id="@+id/cityDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City: Example City"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-<TextView android:id="@+id/accessConditionDetailTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/departmentDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Department: Example Department"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-<TextView android:id="@+id/longitudeTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/regionDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Region: Example Region"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-<TextView android:id="@+id/latitudeTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/accessConditionDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Access Condition: Example Access"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/longitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitude: 0.0000"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/latitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latitude: 0.0000"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 </LinearLayout>
-
+    </LinearLayout>

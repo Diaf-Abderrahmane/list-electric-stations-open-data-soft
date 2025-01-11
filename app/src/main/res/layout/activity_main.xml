@@ -18,45 +18,96 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
         android:title="Home Page"
         android:layout_alignParentTop="true"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 
-    <!-- Filters section -->
-    <LinearLayout
-        android:id="@+id/filters_layout"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:orientation="horizontal"
+        android:id="@+id/scroll"
         android:layout_below="@id/toolbar">
 
-        <Spinner
-            android:id="@+id/spinner_gratuit"
+        <LinearLayout
+            android:id="@+id/filters_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/gratuit_options"
-            android:minHeight="48dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp">
 
-        <Spinner
-            android:id="@+id/region_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:hint="Région"
-            android:minHeight="48dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gratuité"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_gratuit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/gratuit_options"
+                android:minHeight="48dp"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Région"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/region_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:hint="Région"
+                android:minHeight="48dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line_layout"
+        android:layout_below="@+id/scroll"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp">
+
+        <!-- First line, 50% width -->
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="#c0c0c0" />
+
+        <!-- Second line, 50% width -->
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="#c0c0c0"
+            android:layout_marginStart="50dp"/>
     </LinearLayout>
+
 
     <!-- Apply Filters Button -->
     <Button
         android:id="@+id/apply_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/filters_layout"
-        android:layout_marginHorizontal="130dp"
-        android:text="Apply Filters" />
+        android:layout_below="@id/line_layout"
+        android:layout_centerHorizontal="true"
+        android:text="Apply"
+        android:background="@drawable/apply_button"
+        app:backgroundTint="@null"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
 
     <!-- Go to Maps Button -->
     <Button
@@ -65,15 +116,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/apply_button"
         android:layout_margin="20dp"
-        android:text="Go To Maps" />
+        android:text="Go To Maps"
+        android:textColor="@color/mauve"
+        android:background="@drawable/button_with_stroke"
+        app:backgroundTint="@null"/>
 
     <!-- RecyclerView for list of stations -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button"
+        android:background="@drawable/list_backg">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button"
         android:layout_margin="16dp" />
+    </LinearLayout>
 </RelativeLayout>
 
     <!-- Side Navigation Drawer -->

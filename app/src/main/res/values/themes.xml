@@ -10,4 +10,10 @@
 
 
     <style name="Theme.OpenDataSoftApp" parent="Base.Theme.OpenDataSoftApp" />
+
+    <style name="ButtonWithStroke" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_with_stroke</item>
+        <item name="android:textColor">@color/mauve</item>
+    </style>
+
 </resources>

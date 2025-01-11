@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E95656</color>
     <color name="blue">#A5D9FF</color>
+    <color name="mauve">#8334F8</color>
+    <color name="mauve_op">#D5B9F8</color>
+    <color name="mauve_black">#3D275E</color>
+    #
 </resources>

@@ -3,6 +3,7 @@ package com.example.opendatasoftapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,53 +80,46 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         SharedPreferences preferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        // Use Gson to convert the Result object to a JSON string
         Gson gson = new Gson();
         String stationJson = gson.toJson(station);
+        Log.d("FavoritesDebug", "Adding station JSON: " + stationJson);
 
-        // Get the existing favorites set (or create a new one if it doesn't exist)
-        Set<String> favorites = preferences.getStringSet("favoriteStations", new HashSet<>());
-
-        // Add the JSON string representing the station to the favorites set
+        Set<String> favorites = new HashSet<>(preferences.getStringSet("favoriteStations", new HashSet<>()));
         favorites.add(stationJson);
-
-        // Save the updated set back to SharedPreferences
         editor.putStringSet("favoriteStations", favorites);
-        editor.apply();  // Commit changes to SharedPreferences
-    }
+        editor.apply();
 
+        Log.d("FavoritesDebug", "Favorites after adding: " + favorites);
+    }
 
     private void removeFromFavorites(Result station) {
         SharedPreferences preferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        // Use Gson to convert the Result object to a JSON string
         Gson gson = new Gson();
         String stationJson = gson.toJson(station);
+        Log.d("FavoritesDebug", "Removing station JSON: " + stationJson);
 
-        // Get the existing favorites set (or create a new one if it doesn't exist)
-        Set<String> favorites = preferences.getStringSet("favoriteStations", new HashSet<>());
-
-        // Remove the station's JSON string from the favorites set
+        Set<String> favorites = new HashSet<>(preferences.getStringSet("favoriteStations", new HashSet<>()));
         favorites.remove(stationJson);
-
-        // Save the updated set back to SharedPreferences
         editor.putStringSet("favoriteStations", favorites);
-        editor.apply();  // Commit changes to SharedPreferences
-    }
+        editor.apply();
 
+        Log.d("FavoritesDebug", "Favorites after removing: " + favorites);
+    }
 
     private boolean isFavorite(Result station) {
         SharedPreferences preferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE);
         Set<String> favorites = preferences.getStringSet("favoriteStations", new HashSet<>());
 
-        // Use Gson to convert the Result object to a JSON string
         Gson gson = new Gson();
         String stationJson = gson.toJson(station);
+        Log.d("FavoritesDebug", "Checking if favorite. Station JSON: " + stationJson);
+        Log.d("FavoritesDebug", "Favorites: " + favorites);
 
-        // Check if the station's JSON string is in the favorites set
         return favorites.contains(stationJson);
     }
+
 
 
     static class RecordViewHolder extends RecyclerView.ViewHolder {

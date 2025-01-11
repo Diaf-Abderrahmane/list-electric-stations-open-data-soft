@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private NavigationView navigationView;
     private List<Result> stationList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerGratuit;
     private Spinner spinnerRegion;
     private Button applyFiltersButton;
-    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -74,6 +72,23 @@ public class MainActivity extends AppCompatActivity {
         // to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+        // Handle navigation item clicks
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                // Navigate to Home
+                Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+            } else if (itemId == R.id.nav_favorites) {
+                // Navigate to Favorites
+                Intent favoritesIntent = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(favoritesIntent);
+            }
+            drawerLayout.closeDrawer(GravityCompat.START); // Close the drawer
+            return true;
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -107,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
                     String selectedRegion = spinnerRegion.getSelectedItem() != null ? spinnerRegion.getSelectedItem().toString() : "";
                     String selectedGratuit = spinnerGratuit.getSelectedItem().toString();
                     if (selectedRegion.equals("Région")) {
-                    fetchRecords("",selectedGratuit);} else {
+                        fetchRecords("", selectedGratuit);
+                    } else {
                         fetchRecords(selectedRegion, selectedGratuit);
                     } // Fetch more records when scrolled to the bottom
                 }
@@ -115,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Fetching the stations using Retrofit
-        fetchRecords("","All");
+        fetchRecords("", "All");
 
         // Set up the apply filters button
         applyFiltersButton.setOnClickListener(v -> applyFilters());
@@ -137,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     // fetch with gratuit
@@ -307,7 +322,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
 

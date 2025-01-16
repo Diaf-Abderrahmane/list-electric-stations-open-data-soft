@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.data.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,4 +16,5 @@ public class ApiClient {
         return retrofit;
     }
 }
+
 

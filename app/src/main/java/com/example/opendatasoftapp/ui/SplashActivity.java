@@ -1,10 +1,12 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.opendatasoftapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

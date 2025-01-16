@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui.maps;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
@@ -6,14 +6,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.example.opendatasoftapp.R;
-import com.example.opendatasoftapp.Result; // Assure-toi d'importer ta classe Result
+import com.example.opendatasoftapp.data.model.Result; // Assure-toi d'importer ta classe Result
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.List;

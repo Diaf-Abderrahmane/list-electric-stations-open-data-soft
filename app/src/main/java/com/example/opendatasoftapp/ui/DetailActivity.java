@@ -1,13 +1,12 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.opendatasoftapp.R;
+import com.example.opendatasoftapp.data.model.Result;
 
 public class DetailActivity extends AppCompatActivity {
 

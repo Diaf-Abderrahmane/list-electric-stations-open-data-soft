@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.opendatasoftapp.R;
+import com.example.opendatasoftapp.data.model.Result;
+import com.example.opendatasoftapp.ui.DetailActivity;
 import com.google.gson.Gson;
 
 import java.util.HashSet;

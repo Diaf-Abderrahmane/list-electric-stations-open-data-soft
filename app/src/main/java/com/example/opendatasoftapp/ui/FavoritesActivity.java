@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,19 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.opendatasoftapp.R;
+import com.example.opendatasoftapp.ui.adapters.RecordAdapter;
+import com.example.opendatasoftapp.data.model.Result;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
@@ -30,7 +28,7 @@ import java.util.Set;
 public class FavoritesActivity extends AppCompatActivity {
     private RecyclerView favoritesRecyclerView;
     private RecordAdapter adapter;
-    private List<Result> favoriteStations = new ArrayList<>(); // List to hold favorited stations
+    private List<Result> favoriteStations = new ArrayList<>(); // List to hold favorite stations
 
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;

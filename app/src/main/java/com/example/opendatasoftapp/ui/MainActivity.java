@@ -1,8 +1,7 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,8 +27,16 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.example.opendatasoftapp.data.api.ApiClient;
+import com.example.opendatasoftapp.data.api.ApiResponse;
+import com.example.opendatasoftapp.data.api.ApiService;
+import com.example.opendatasoftapp.ui.maps.MapsActivity;
 import com.example.opendatasoftapp.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.opendatasoftapp.data.model.Result;
+import com.example.opendatasoftapp.Utils.AlertUtils;
+import com.example.opendatasoftapp.Utils.NetworkUtils;
+import com.example.opendatasoftapp.ui.adapters.RecordAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -101,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         applyFiltersButton = findViewById(R.id.apply_button);
         spinnerGratuit = findViewById(R.id.spinner_gratuit);
         spinnerRegion = findViewById(R.id.region_spinner);
+
 //        fetchCities();
         fetchRegions();
 
@@ -130,8 +138,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Fetching the stations using Retrofit
-        fetchRecords("", "All");
+
+        // Initial API call to fetch stations
+        checkAndCallApi();
+
+
+
 
         // Set up the apply filters button
         applyFiltersButton.setOnClickListener(v -> applyFilters());
@@ -211,38 +223,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void fetchCities() {
-//        spinnerCity = findViewById(R.id.spinner_city);
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-//        // You can call your existing API here to fetch the data
-//        Call<ApiResponse> call = apiService.getStations(0, 100,null, null); // You can increase the limit for more data
-//        call.enqueue(new Callback<ApiResponse>() {
-//            @Override
-//            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    ApiResponse apiResponse = response.body();
-//                    List<String> cityList = new ArrayList<>();
-//
-//                    for (Result station : apiResponse.getResults()) {
-//                        String city = station.getMetaNameCom();  // Assuming this is how to get the city name
-//                        if (!cityList.contains(city)) {
-//                            cityList.add(city);
-//                        }
-//                    }
-//
-//                    // Now populate the Spinner with the city list
-//                    ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, cityList);
-//                    cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinnerCity.setAdapter(cityAdapter);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ApiResponse> call, Throwable t) {
-//                System.out.println("Error: " + t.getMessage());
-//            }
-//        });
-//    }
 
     private void fetchRegions() {
         spinnerRegion = findViewById(R.id.region_spinner);
@@ -303,6 +283,22 @@ public class MainActivity extends AppCompatActivity {
 
         // Call fetchRecords with both filters
         fetchRecords(selectedRegion, selectedGratuit);
+    }
+
+    private void checkAndCallApi() {
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            // Show the dialog and retry API call on "Retry"
+            AlertUtils.showNoInternetDialog(this, new Runnable() {
+                @Override
+                public void run() {
+                    // Retry logic
+                    checkAndCallApi();
+                }
+            });
+        } else {
+            // Fetching the stations using Retrofit
+            fetchRecords("", "All");
+        }
     }
 
     @Override

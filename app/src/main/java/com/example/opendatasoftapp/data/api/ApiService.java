@@ -1,10 +1,11 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.data.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
     @GET("osm-france-charging-station/records")
     Call<ApiResponse> getStations(
             @Query("offset") int offset, // The starting point
@@ -12,4 +13,5 @@ public interface ApiService {
 //            @Query("city") String city,
             @Query("where") String where // Region filter// City filter
     );
+
 }

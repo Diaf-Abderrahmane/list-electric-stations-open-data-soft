@@ -1,4 +1,4 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.opendatasoftapp.R;
+import com.example.opendatasoftapp.data.model.Result;
 
 import java.util.HashSet;
 import java.util.List;

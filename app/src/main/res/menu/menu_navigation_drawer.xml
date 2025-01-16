@@ -5,7 +5,7 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        android:icon="@drawable/heart_filled_icon" />
+        android:icon="@drawable/home" />
 
     <item
         android:id="@+id/nav_favorites"

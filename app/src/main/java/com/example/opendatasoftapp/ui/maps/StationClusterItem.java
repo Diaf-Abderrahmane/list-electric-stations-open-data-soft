@@ -1,5 +1,6 @@
-package com.example.opendatasoftapp;
+package com.example.opendatasoftapp.ui.maps;
 
+import com.example.opendatasoftapp.data.model.Result;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
